@@ -71,13 +71,13 @@ with datasetDesc:
   st.markdown("""
   ## Dataset Description
   Fer2013 dataset consists of 48x48 pixel grayscale images of faces.
-  * 0 Happy,
-  * 1 Angry,
-  * 2 Surprise,
-  * 3 Sad,
-  * 4 Neutral,
-  * 5 Fear,
-  * 6 Disgust.
+  * 0 Angry (train - 3995/test - 958),
+  * 1 Disgust (train - 436/test - 111),
+  * 2 Fear (train - 4097/test - 1024),
+  * 3 Happy (train - 7215/test - 1774),
+  * 4 Neutral (train - 4965 /test - 1233),
+  * 5 Sad (train - 4830 /test - 1247),
+  * 6 Surprise (train - 3171/test -  831).
 
 We define a CNN model and compare the predicted results with given labels.""")
 
@@ -91,8 +91,8 @@ RTC_CONFIGURATION = RTCConfiguration({"iceServers": [{"urls": ["stun:stun.l.goog
 
 
 # load model
-path = cwd + "\haarcascade_frontalface_default.xml"   # haarcascade file
-model_path = cwd + "\Vinnet.h5"                       # Trained Model
+path = cwd + "/haarcascade_frontalface_default.xml"   # haarcascade file
+model_path = cwd + "/Vinnet.h5"                       # Trained Model
 vinnet_model = tf.keras.models.load_model(model_path)
 faceCascade = cv2.CascadeClassifier(path)
 
