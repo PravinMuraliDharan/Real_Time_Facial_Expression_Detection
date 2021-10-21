@@ -91,8 +91,8 @@ RTC_CONFIGURATION = RTCConfiguration({"iceServers": [{"urls": ["stun:stun.l.goog
 
 
 # load model
-path = cwd + "Src/haarcascade_frontalface_default.xml"   # haarcascade file
-model_path = cwd + "Src/Vinnet.h5"                       # Trained Model
+path = cwd + "/Src/haarcascade_frontalface_default.xml"   # haarcascade file
+model_path = cwd + "/Src/Vinnet.h5"                       # Trained Model
 vinnet_model = tf.keras.models.load_model(model_path)
 faceCascade = cv2.CascadeClassifier(path)
 
