@@ -107,9 +107,9 @@ class Face_Expression_Detection(VideoTransformerBase):
         img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = faceCascade.detectMultiScale(image=img_gray, scaleFactor=1.1, minNeighbors=4)
         for (x, y, w, h) in faces:
-            roi_gray = img_gray[y:y+h, x:x+w]
-            roi_color = img[y:y+h, x:x+w]
-            cv2.rectangle(img, (x,y), (x+w, y+h), (255, 255, 255), 2)
+          roi_gray = img_gray[y:y+h, x:x+w]
+          roi_color = img[y:y+h, x:x+w]
+          cv2.rectangle(img, (x,y), (x+w, y+h), (255, 255, 255), 2)
                
         final_image = cv2.resize(roi_color, (224,224))
         final_image = np.expand_dims(final_image, axis = 0)
