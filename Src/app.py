@@ -106,58 +106,58 @@ class Face_Expression_Detection(VideoTransformerBase):
         #image gray
         img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         faces = faceCascade.detectMultiScale(image=img_gray, scaleFactor=1.1, minNeighbors=4)
+        roi_color = None
         for (x, y, w, h) in faces:
           roi_gray = img_gray[y:y+h, x:x+w]
           roi_color = img[y:y+h, x:x+w]
           cv2.rectangle(img, (x,y), (x+w, y+h), (255, 255, 255), 2)
-               
-        final_image = cv2.resize(roi_color, (224,224))
-        final_image = np.expand_dims(final_image, axis = 0)
-        final_image = final_image/255.0
-        Predictions = vinnet_model(final_image)                            # Prediction
+        if roi_color is not None:
+          final_image = cv2.resize(roi_color, (224,224))
+          final_image = np.expand_dims(final_image, axis = 0)
+          final_image = final_image/255.0
+          Predictions = vinnet_model(final_image)                            # Prediction
         # Status = Angry
-        if (np.argmax(Predictions) == 0):
-          status = "Angry"
-          x1,y1,w1,h1 = 0,0,175,75
-          cv2.putText(img, status, (100, 150), font, 1.5, (0,0,255),2,cv2.LINE_4)
-          cv2.rectangle(img, (x,y), (x+w, y+h), (255,255,255), 2)
+          if (np.argmax(Predictions) == 0):
+            status = "Angry"
+            x1,y1,w1,h1 = 0,0,175,75
+            cv2.putText(img, status, (100, 150), font, 1.5, (0,0,255),2,cv2.LINE_4)
+            cv2.rectangle(img, (x,y), (x+w, y+h), (255,255,255), 2)
         # Status = Disgust
-        elif (np.argmax(Predictions) == 1):
-          status = "Disgust"
-          x1,y1,w1,h1 = 0,0,175,75
-          cv2.putText(img, status, (100, 150), font, 1.5, (0,128,128),2,cv2.LINE_4)
-          cv2.rectangle(img, (x,y), (x+w, y+h), (255,255,255), 2)
+          elif (np.argmax(Predictions) == 1):
+            status = "Disgust"
+            x1,y1,w1,h1 = 0,0,175,75
+            cv2.putText(img, status, (100, 150), font, 1.5, (0,128,128),2,cv2.LINE_4)
+            cv2.rectangle(img, (x,y), (x+w, y+h), (255,255,255), 2)
         # Status = Fear
-        elif (np.argmax(Predictions) == 2):
-          status = "Fear"
-          x1,y1,w1,h1 = 0,0,175,75
-          cv2.putText(img, status, (100, 150), font, 1.5, (0,0,128),2,cv2.LINE_4)
-          cv2.rectangle(img, (x,y), (x+w, y+h), (255,255,255), 2)
+          elif (np.argmax(Predictions) == 2):
+            status = "Fear"
+            x1,y1,w1,h1 = 0,0,175,75
+            cv2.putText(img, status, (100, 150), font, 1.5, (0,0,128),2,cv2.LINE_4)
+            cv2.rectangle(img, (x,y), (x+w, y+h), (255,255,255), 2)
         # Status = Happy
-        elif (np.argmax(Predictions) == 3):
-          status = "Happy"
-          x1,y1,w1,h1 = 0,0,175,75
-          cv2.putText(img, status, (100, 150), font, 1.5, (0,255,0),2,cv2.LINE_4)
-          cv2.rectangle(img, (x,y), (x+w, y+h), (255,255,255), 2)
+          elif (np.argmax(Predictions) == 3):
+            status = "Happy"
+            x1,y1,w1,h1 = 0,0,175,75
+            cv2.putText(img, status, (100, 150), font, 1.5, (0,255,0),2,cv2.LINE_4)
+            cv2.rectangle(img, (x,y), (x+w, y+h), (255,255,255), 2)
         # Status = Sad
-        elif (np.argmax(Predictions) == 5):
-          status = "Sad"
-          x1,y1,w1,h1 = 0,0,175,75
-          cv2.putText(img, status, (100, 150), font, 1.5, (255,0,0),2,cv2.LINE_4)
-          cv2.rectangle(img, (x,y), (x+w, y+h), (255,255,255), 2)
+          elif (np.argmax(Predictions) == 5):
+            status = "Sad"
+            x1,y1,w1,h1 = 0,0,175,75
+            cv2.putText(img, status, (100, 150), font, 1.5, (255,0,0),2,cv2.LINE_4)
+            cv2.rectangle(img, (x,y), (x+w, y+h), (255,255,255), 2)
         # Status = Surprise
-        elif (np.argmax(Predictions) == 6):
-          status = "Surprise"
-          x1,y1,w1,h1 = 0,0,175,75
-          cv2.putText(img, status, (100, 150), font, 1.5, (0,255,255),2,cv2.LINE_4)
-          cv2.rectangle(img, (x,y), (x+w, y+h), (255,255,255), 2)
+          elif (np.argmax(Predictions) == 6):
+            status = "Surprise"
+            x1,y1,w1,h1 = 0,0,175,75
+            cv2.putText(img, status, (100, 150), font, 1.5, (0,255,255),2,cv2.LINE_4)
+            cv2.rectangle(img, (x,y), (x+w, y+h), (255,255,255), 2)
         # Status = Neutral
-        else:
-          status = "Neutral"
-          x1,y1,w1,h1 = 0,0,175,75
-          cv2.putText(img, status, (100, 150), font, 1.5, (255,255,255),2,cv2.LINE_4)
-          cv2.rectangle(img, (x,y), (x+w, y+h), (255,255,255), 2)
-
+          else:
+            status = "Neutral"
+            x1,y1,w1,h1 = 0,0,175,75
+            cv2.putText(img, status, (100, 150), font, 1.5, (255,255,255),2,cv2.LINE_4)
+            cv2.rectangle(img, (x,y), (x+w, y+h), (255,255,255), 2)
           
         return img
 
