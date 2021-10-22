@@ -99,7 +99,7 @@ faceCascade = cv2.CascadeClassifier(path)
 
 class Face_Expression_Detection(VideoTransformerBase):
     @st.cache(allow_output_mutation=True, max_entries=20, ttl=4600)
-    def transform(self, frame):
+    def recv(self, frame):
         img = frame.to_ndarray(format="bgr24")
         font_scale = 1.5
         font = cv2.FONT_HERSHEY_DUPLEX
